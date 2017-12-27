@@ -6,41 +6,24 @@ The following codes/customizations are supported:
 - Nothing
 
 The following codes/customizations are planned:
-- Always display 50 star text box after grabbing a star
-- All stars yellow*
-  - Custom star color
-- Custom dust color
-- Move timer slightly left*
-  - Full custom UI?
-- Infinite lives*
-- Lag frame counter*
-  - Reset counter with L*
-  - Reset counter on star select*
-  - Hide BUF text*
-  - Display lag counter as life count
-- Level reset (with camera fix)*
-- Star select*
-  - tiny vs. huge THI
-- Level select*
-- No music*
-- Non-stop
-- Practice files with customizable locations
-  - 120 star*
-  - Up RTA 74 star*
-  - Up RTA 39 star
-  - Up RTA 38 star
-  - Tippy RTA 103 star
-  - Tippy RTA 58
-- Savestates*
-- Soft reset (A+B+Z+Start)*
-- Always spawn MIPS in basement*
-- Always spawn sub in DDD*
-- Always spawn unpressed cap switches*
-- Always spawn toad stars*
-- Never spawn fat penguin in CCM*
-- Speed display
-  - Display speed as star count
-- Timers*
+- Cosmetic
+  - All stars yellow*
+    - Custom star color
+  - Custom dust color
+  - No music*
+  - Custom title screen text
+- Misc
+  - Always display 50 star text box after grabbing a star
+  - Non-stop
+  - Soft reset (A+B+Z+Start)*
+  - Always spawn MIPS in basement*
+  - Always spawn sub in DDD*
+  - Always spawn unpressed cap switches*
+  - Always spawn toad stars*
+  - Never spawn fat penguin in CCM*
+  - TTC clock speed (L+C-up/C-down)*
+  - WDW water level (L+D-up/D-right/D-down)*
+- Timer
   - Remove TIME text*
   - Star grab
   - X-cam*
@@ -52,9 +35,30 @@ The following codes/customizations are planned:
   - Centiseconds*
   - Automatically reset on star select*
   - Reset with L*
-- TTC clock speed (L+C-up/C-down)*
-- WDW water level (L+D-up/D-right/D-down)*
-- Custom title screen text
+  - Move timer slightly left*
+- Efficient practice
+  - Practice files with customizable locations
+    - 120 star*
+    - Up RTA 74 star*
+    - Up RTA 39 star
+    - Up RTA 38 star
+    - Tippy RTA 103 star
+    - Tippy RTA 58
+  - Infinite lives*
+  - Level reset (with camera fix)*
+  - Star select*
+    - tiny vs. huge THI
+  - Savestates*
+  - Level select*
+- HUD
+  - Lag frame counter*
+    - Reset counter with L*
+    - Reset counter on star select*
+    - Hide BUF text*
+    - Display lag counter as life count
+  - Speed display
+    - Display speed as star count
+  - Fully editable HUD
 
 \*This is part of the current practice ROM and will be implemented first
 
