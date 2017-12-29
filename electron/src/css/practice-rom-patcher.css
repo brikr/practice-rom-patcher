@@ -1,9 +1,15 @@
 /* breathing room in the tab panes */
 .tab-content {
-  padding: 10px;
+  padding-top: 10px;
 }
 
 /* switch squares are grey when unchecked */
 .switch-input input:not(:checked)+i:before {
   background-color: #888888
+}
+
+/* this helps our radio buttons and switches space vertically */
+.padded-row {
+  padding-top: 10px;
+  margin-bottom: 4px;
 }

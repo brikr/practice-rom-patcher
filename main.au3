@@ -1,9 +1,14 @@
 #include <GUIConstants.au3>
+#include <WinAPI.au3>
 
 ; Basic wrapper around custom assembly files and bass.exe
 ; Special thanks to abitalive, atmpas, and circumark994 for assembly/tools
 
-$gui = GUICreate("Practice ROM Patcher", 300, 310)
+$gui = GUICreate("Practice ROM Patcher", 300, 330)
+
+; Menus
+$fileMenu = GUICtrlCreateMenu("&File")
+$exportMenuItem = GUICtrlCreateMenuItem("Export", $fileMenu)
 
 GUICtrlCreateTab(0, 0, 300, 260)
 
@@ -171,6 +176,10 @@ While 1
   Switch GUIGetMsg()
     Case $GUI_EVENT_CLOSE
       ExitLoop
+    Case $patchButton
+      ; TODO
+    Case $exportMenuItem
+      Export()
     Case $starSelectCheckbox
       If GUICtrlRead($starSelectCheckbox) == $GUI_UNCHECKED Then
         GUICtrlSetState($thiTinyRadio, $GUI_DISABLE)
@@ -237,3 +246,10 @@ While 1
         EndIf
   EndSwitch
 WEnd
+
+Func Export()
+  $tmpFileName = _WinAPI_GetSaveFileName(Default, "Ini Files (*.ini)|All Files (*.*)", Default, Default, Default, Default, Default, Default, $gui)
+  If $tmpFileName[0] == 0 Then Return
+  $path = $tmpFileName[1] & "\" & $tmpFileName[2]
+  MsgBox(0, "", $path)
+EndFunc
