@@ -15,5 +15,10 @@
   "homepage": "https://github.com/brikr/practice-rom-patcher#readme",
   "devDependencies": {
     "electron": "~1.7.10"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-colorpicker": "^2.5.2",
+    "jquery": "^3.2.1"
   }
 }
