@@ -1,0 +1,9 @@
+/* breathing room in the tab panes */
+.tab-content {
+  padding: 10px;
+}
+
+/* switch squares are grey when unchecked */
+.switch-input input:not(:checked)+i:before {
+  background-color: #888888
+}

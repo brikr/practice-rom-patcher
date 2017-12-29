@@ -1,0 +1,19 @@
+{
+  "name": "practice-rom-patcher",
+  "version": "1.0.0",
+  "description": "Simple tool to make creating custom practice ROMs easy",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/brikr/practice-rom-patcher.git",
+  "author": "brikr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brikr/practice-rom-patcher/issues"
+  },
+  "homepage": "https://github.com/brikr/practice-rom-patcher#readme",
+  "devDependencies": {
+    "electron": "~1.7.10"
+  }
+}

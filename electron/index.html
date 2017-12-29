@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="src/js/index.js"></script>
+      
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link href="src/css/bootstrap-flat.min.css" rel="stylesheet">
+      <link href="src/css/bootstrap-flat-extras.min.css" rel="stylesheet">
+      <link href="src/css/practice-rom-patcher.css" rel="stylesheet">
+  </head>
+  <body>
+    <ul class="nav nav-tabs nav-tabs-pivot" data-tabs="tabs">
+      <li class="active"><a data-toggle="tab" href="#efficient">Efficient Practice</a></li>
+      <li><a data-toggle="tab" href="#timer">Timer</a></li>
+      <li><a data-toggle="tab" href="#hud">HUD</a></li>
+      <li><a data-toggle="tab" href="#cosmetic">Cosmetic</a></li>
+      <li><a data-toggle="tab" href="#misc">Misc</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="efficient" class="tab-pane active">
+        <!-- Practice Files -->
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label for="file-a" class="control-label">File A</label>
+            <select id="file-a" class="form-control practice-file-select">
+            </select>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="file-b" class="control-label">File B</label>
+            <select id="file-b" class="form-control practice-file-select">
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label for="file-c" class="control-label">File C</label>
+            <select id="file-c" class="form-control practice-file-select">
+            </select>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="file-d" class="control-label">File D</label>
+            <select id="file-d" class="form-control practice-file-select">
+            </select>
+          </div>
+        </div>
+
+        <!-- Checkboxes -->
+        <form>
+          <label class="switch-input">
+            <input id="infinite-lives" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Infinite Lives
+          </label>
+          <label class="switch-input">
+            <input id="level-reset" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Level Reset with Camera Fix
+          </label>
+          <label class="switch-input">
+              <input id="star-select" name="switch-checkbox" type="checkbox" checked>
+              <i data-swoff-text="OFF" data-swon-text="ON"></i>Star Select
+          </label>
+          <div id="thi-behavior" class="row">
+            <label class="radio control-label col-xs-offset-1 col-xs-6">THI Star Select Behavior</label>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-primary active">
+                <input type="radio" name="options" id="tiny-island" autocomplete="off" checked>Tiny
+              </label>
+              <label class="btn btn-primary">
+                <input type="radio" name="options" id="huge-island">Huge
+              </label>
+            </div>
+          </div>
+          <label class="switch-input">
+              <input id="savestates" name="switch-checkbox" type="checkbox" checked>
+              <i data-swoff-text="OFF" data-swon-text="ON"></i>Savestates 3.0
+          </label>
+          <label class="switch-input">
+              <input id="level-select" name="switch-checkbox" type="checkbox" checked>
+              <i data-swoff-text="OFF" data-swon-text="ON"></i>Level Select
+          </label>
+        </form>
+      </div>
+      <div id="timer" class="tab-pane">
+        <form>
+          <label class="switch-input">
+            <input id="timer" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Timer
+          </label>
+          <label class="switch-input">
+            <input id="timer-in-castle" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Show Timer in Castle
+          </label>
+          <label class="switch-input">
+            <input id="timer-centiseconds" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Show Centiseconds
+          </label>
+          <div id="show-timer" class="row">
+            <label class="radio control-label col-xs-4">Show timer</label>
+            <div class="btn-group col-xs-8" data-toggle="buttons">
+              <label class="btn btn-primary pull-right">
+                <input type="radio" name="options" id="show-always" checked>Always
+              </label>
+              <label class="btn btn-primary active pull-right">
+                <input type="radio" name="options" id="show-x-cam" checked>X-Cam
+              </label>
+              <label class="btn btn-primary pull-right">
+                <input type="radio" name="options" id="show-star-grab">Star Grab
+              </label>
+            </div>
+          </div>
+          <div id="stop-timer" class="row">
+            <label class="radio control-label col-xs-6">Stop Timer</label>
+            <div class="btn-group col-xs-6" data-toggle="buttons">
+              <label class="btn btn-primary active pull-right">
+                <input type="radio" name="options" id="stop-x-cam" checked>X-Cam
+              </label>
+              <label class="btn btn-primary pull-right">
+                <input type="radio" name="options" id="stop-star-grab">Star Grab
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="hud" class="tab-pane">
+        <form>
+          <label class="switch-input">
+            <input id="lag-counter" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Lag Frame Counter
+          </label>
+          <label class="switch-input">
+            <input id="lag-as-lives" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Display Lag Counter as Lives Count
+          </label>
+          <label class="switch-input">
+            <input id="speed-display" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Speed Display
+          </label>
+          <label class="switch-input">
+            <input id="speed-as-stars" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Display Speed as Star Count
+          </label>
+        </form>
+      </div>
+      <div id="cosmetic" class="tab-pane">
+        <form>
+          <label class="switch-input">
+            <input id="music" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Music
+          </label>
+          <label class="switch-input">
+            <input id="unobtained-stars" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Stars Appear Unobtained
+          </label>
+        </form>
+      </div>
+      <div id="misc" class="tab-pane">
+        <form>
+          <label class="switch-input">
+            <input id="soft-reset" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Soft Reset
+          </label>
+          <label class="switch-input">
+            <input id="always-spawn-mips" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Always Spawn MIPS
+          </label>
+          <label class="switch-input">
+            <input id="always-spawn-sub" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Always Sub in DDD
+          </label>
+          <label class="switch-input">
+            <input id="always-spawn-unpressed-switches" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Always Spawn Unpressed Cap Switches
+          </label>
+          <label class="switch-input">
+            <input id="always-spawn-toad-stars" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Always Spawn Stars from Toad
+          </label>
+          <label class="switch-input">
+            <input id="fat-penguin" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Allow Fat Penguin to Spawn
+          </label>
+          <label class="switch-input">
+            <input id="ttc-speed" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Adjustable TTC Clock Speed
+          </label>
+          <label class="switch-input">
+            <input id="wdw-level" name="switch-checkbox" type="checkbox" checked>
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Adjustable WDW Water Level
+          </label>
+          <label class="switch-input">
+            <input id="50-star-text" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Always Display 50 Star Text Box
+          </label>
+          <label class="switch-input">
+            <input id="nonstop" name="switch-checkbox" type="checkbox">
+            <i data-swoff-text="OFF" data-swon-text="ON"></i>Non-stop
+          </label>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
