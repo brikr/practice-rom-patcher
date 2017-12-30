@@ -5,7 +5,34 @@
 
 /* switch squares are grey when unchecked */
 .switch-input input:not(:checked)+i:before {
-  background-color: #888888
+  background-color: #888888;
+}
+
+/* option to make switch squares back to normal */
+.switch-input-flat input:not(:checked)+i:before {
+  background-color: #406da4;
+}
+
+.switch-input-flat input:not(:checked)+i:after {
+  color: #777;
+}
+
+/* wider switch input, adds 10px */
+.switch-input-lg i {
+  width: 60px;
+}
+
+.switch-input-lg input:checked+i:before {
+  right: 43px;
+}
+
+/* wider-er switch input, adds 40px */
+.switch-input-xl i {
+  width: 90px;
+}
+
+.switch-input-xl input:checked+i:before {
+  right: 73px;
 }
 
 /* this helps our radio buttons and switches space vertically */
