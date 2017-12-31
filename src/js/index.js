@@ -149,7 +149,7 @@ function patch() {
   })
   if(!unpatchedROM) return
 
-  writeAsmFile(data)
+  writeAsmFile(data, unpatchedROM[0])
 
   console.log(data)
   console.log(unpatchedROM)
@@ -196,6 +196,7 @@ function writeAsmFile(data, unpatchedROM) {
       preHijack.push('stop_star_grab.asm')
     } else {
       preHijack.push('show_stop_xcam.asm')
+      postHijack.push('xcam_post.asm')
     }
     if (data.timerInCastle) {
       preHijack.push('timer_in_castle.asm')
@@ -259,7 +260,8 @@ function writeAsmFile(data, unpatchedROM) {
     'include "N64.inc"\n' +
     'include "macros.inc"\n' +
     'origin 0x0\n' +
-    `insert ${unpatchedROM}\n`
+    // `insert "${unpatchedROM}"\n`
+    'insert "../Super Mario 64 (J) [!].z64"\n'
   )
 
   preHijack.forEach(function(file) {
