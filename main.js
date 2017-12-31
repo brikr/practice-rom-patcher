@@ -5,7 +5,14 @@ const url = require('url')
 let mainWindow
 
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 450, height: 500, resizable: false})
+  mainWindow = new BrowserWindow({
+    title: 'Practice ROM Patcher by minikori',
+    width: 450,
+    height: 500,
+    resizable: false
+  })
+
+  // mainWindow.setMenu(null)
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
