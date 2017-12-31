@@ -30,8 +30,8 @@ $(document).ready(function() {
       $('#timer-in-castle').parent().slideDown();
       $('#timer-centiseconds').parent().slideDown();
       $('#timer-always').parent().slideDown();
+      $('#stop-timer').parent().slideDown();
       if(!$('#timer-always').is(':checked')) {
-        $('#stop-timer').parent().slideDown();
         $('#show-timer').parent().slideDown();
       }
     } else {
@@ -45,10 +45,8 @@ $(document).ready(function() {
 
   $('#timer-always').change(function() {
     if($(this).is(':checked')) {
-      $('#stop-timer').parent().slideUp();
       $('#show-timer').parent().slideUp();
     } else {
-      $('#stop-timer').parent().slideDown();
       $('#show-timer').parent().slideDown();
     }
   })
