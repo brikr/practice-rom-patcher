@@ -1,10 +1,10 @@
 $(document).ready(function() {
+  // set file picker contents/defaults
   fileOptions = {
     'Empty': 0,
     '120 Star': 120,
     '74 Star (Up RTA)': 74
   }
-
   $.each(fileOptions, function(key, value) {
     $('.practice-file-select').each(function() {
       $(this).append($('<option></option>')
@@ -13,13 +13,69 @@ $(document).ready(function() {
       )
     })
   })
-
   $('#file-c').val(120)
   $('#file-d').val(74)
+
+  // hide/show elements as necessary
+  $('#star-select').change(function() {
+    if($(this).is(':checked')) {
+      $('#thi-behavior').parent().slideDown();
+    } else {
+      $('#thi-behavior').parent().slideUp();
+    }
+  })
+
+  $('#timer-on').change(function() {
+    if($(this).is(':checked')) {
+      $('#timer-in-castle').parent().slideDown();
+      $('#timer-centiseconds').parent().slideDown();
+      $('#timer-always').parent().slideDown();
+      if(!$('#timer-always').is(':checked')) {
+        $('#stop-timer').parent().slideDown();
+        $('#show-timer').parent().slideDown();
+      }
+    } else {
+      $('#timer-in-castle').parent().slideUp();
+      $('#timer-centiseconds').parent().slideUp();
+      $('#timer-always').parent().slideUp();
+      $('#stop-timer').parent().slideUp();
+      $('#show-timer').parent().slideUp();
+    }
+  })
+
+  $('#timer-always').change(function() {
+    if($(this).is(':checked')) {
+      $('#stop-timer').parent().slideUp();
+      $('#show-timer').parent().slideUp();
+    } else {
+      $('#stop-timer').parent().slideDown();
+      $('#show-timer').parent().slideDown();
+    }
+  })
+
+  $('#lag-counter').change(function() {
+    if($(this).is(':checked')) {
+      $('#lag-as-lives').parent().slideDown();
+    } else {
+      $('#lag-as-lives').parent().slideUp();
+    }
+  })
+
+  $('#speed-as-stars').parent().slideUp(); // speed display is off by default so this should be pre-slid
+  $('#speed-display').change(function() {
+    if($(this).is(':checked')) {
+      $('#speed-as-stars').parent().slideDown();
+    } else {
+      $('#speed-as-stars').parent().slideUp();
+    }
+  })
+
+  // init star color picker
   $('#star-color').colorpicker({
     format: 'rgb'
   })
 
+  // patch button handler
   $('#patch-button').click(function() {
     json = getPatchJson()
     console.log(json)
@@ -34,11 +90,6 @@ function selected(id) {
 // helper to return whether or not a checkbox is checked
 function checked(id) {
   return $('#' + id).is(':checked')
-}
-
-// helper to get value of selected radio option
-function radio(name) {
-  return $('input[name=' + name + ']:checked').val()
 }
 
 // converts RGB color to 5551 hex
@@ -61,14 +112,14 @@ function getPatchJson() {
     infiniteLives: checked('infinite-lives'),
     levelReset: checked('level-reset'),
     starSelect: checked('star-select'),
-    thiBehavior: radio('thi-behavior'),
+    thiBehavior: checked('thi-behavior') ? 'tiny' : 'huge',
     savestates: checked('savestates'),
     levelSelect: checked('level-select'),
-    timer: checked('timer'),
+    timer: checked('timer-on'),
     timerInCastle: checked('timer-in-castle'),
     timerCentiseconds: checked('timer-centiseconds'),
-    showTimer: radio('show-timer'),
-    stopTimer: radio('stop-timer'),
+    showTimer: checked('timer-always') ? 'always' : (checked('show-timer') ? 'x-cam' : 'star-grab'),
+    stopTimer: checked('stop-timer') ? 'x-cam' : 'star-grab',
     lagCounter: checked('lag-counter'),
     lagAsLives: checked('lag-as-lives'),
     speedDisplay: checked('speed-display'),
