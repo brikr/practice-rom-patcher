@@ -15,9 +15,12 @@ The following codes/customizations are planned:
 - Misc
   - Always display 50 star text box after grabbing a star
   - Non-stop
+    - Toggle
+  - Skip intro
   - Soft reset (A+B+Z+Start)*
   - Always spawn MIPS in basement*
   - Always spawn sub in DDD*
+    - Toggle
   - Always spawn unpressed cap switches*
   - Always spawn toad stars*
   - Never spawn fat penguin in CCM*

@@ -156,98 +156,125 @@ function patch() {
 }
 
 function writeAsmFile(data, unpatchedROM) {
-  var preHijack = [] // files to include before hijack resource meter
-  var postHijack = [] // and after
+  // codes are included in master assembly file in the following order:
+  // 1. normal codes - these just modify existing game values one time or do 
+  //      something basic
+  // 2. codes that need to be ran every frame - to achieve this, we hijack the
+  //      resource meter and have it run a bunch of custom code
+  //      note that none of these codes have an origin, because they are all
+  //      executed in succession
+  //    2.1 constant writes - these are always setting a memory value
+  //    2.2 conditionals - if thens, essentially
+  // 3. append a return statement to our resource meter hijacking
+  // 4. other - these involve custom code placed at the end of memory so we
+  //      separate them.
+  //      TODO: why isn't savestates.asm in this?
+
+  var normal = [] // normal/*.asm
+  var hijack = [] // hijack/*.asm
+  var other = [] // other/*.asm
 
   // TODO: custom practice files
-  preHijack.push('120_star_file.asm')
   if (data.infiniteLives) {
-    preHijack.push('infinite_lives.asm')
+    hijack.push('infinite_lives.asm')
   }
   if (data.levelReset) {
-    preHijack.push('level_reset_pre.asm')
-    postHijack.push('level_reset_post.asm')
+    normal.push('level_reset.asm')
+    hijack.push('level_reset.asm')
   }
-  // TODO: THI Behavior
   if (data.starSelect) {
-    postHijack.push('star_select.asm')
+    hijack.push('star_select.asm')
+    // TODO: THI behavior
   }
   if (data.savestates) {
-    preHijack.push('savestates.asm')
+    normal.push('savestates.asm')
   }
   if (data.levelSelect) {
-    postHijack.push('level_select.asm')
+    normal.push('level_select.asm')
+    hijack.push('level_select.asm')
   }
   if (data.timer) {
-    preHijack.push('timer_pre.asm')
-    postHijack.push('timer_post.asm')
+    normal.push('timer.asm')
+    hijack.push('reset_timer.asm')
+    if (data.timerInCastle) {
+      normal.push('timer_in_castle.asm')
+    }
+    if (data.timerCentiseconds) {
+      normal.push('timer_centiseconds.asm')
+    }
+    var xCam = false
     switch (data.showTimer) {
       case 'always':
-        preHijack.push('timer_always.asm')
+        normal.push('show_timer_always.asm')
         break
       case 'x-cam':
-        preHijack.push('show_stop_xcam.asm')
+        // TODO: using stop code here. shouldn't matter, but should split it out
+        xCam = true
         break
       case 'star-grab':
-        preHijack.push('show_star_grab.asm')
+        normal.push('show_star_grab.asm')
         break
     }
     if (data.stopTimer === 'star-grab') {
-      preHijack.push('stop_star_grab.asm')
+      normal.push('stop_star_grab.asm')
     } else {
-      preHijack.push('show_stop_xcam.asm')
-      postHijack.push('xcam_post.asm')
+      xCam = true
     }
-    if (data.timerInCastle) {
-      preHijack.push('timer_in_castle.asm')
-    }
-    if (data.timerCentiseconds) {
-      preHijack.push('timer_centiseconds.asm')
+    if (xCam) {
+      // only want to add this once
+      normal.push('stop_xcam.asm')
+      other.push('stop_xcam.asm')
     }
   }
   if (data.lagCounter) {
-    preHijack.push('lag_counter_pre.asm')
-    postHijack.push('lag_counter_post.asm')
+    normal.push('lag_counter.asm')
+    hijack.push('reset_lag_counter.asm')
     if (data.lagAsLives) {
-      preHijack.push('lag_as_lives.asm')
+      normal.push('lag_as_lives.asm')
     }
   }
   if (data.speedDisplay) {
-    preHijack.push('speed_display.asm')
-    // TODO: speed as stars
+    normal.push('speed_display.asm')
+    if (data.speedAsStars) {
+      other.push('speed_as_stars.asm')
+    }
   }
   if (!data.music) {
-    preHijack.push('no_music.asm')
+    normal.push('no_music.asm')
   }
   if (data.unobtainedStars) {
-    preHijack.push('unobtained_stars.asm')
+    normal.push('unobtained_stars.asm')
+  }
+  // TODO: custom star color
+  if (data.softReset) {
+    hijack.push('soft_reset.asm')
   }
   if (data.alwaysSpawnMIPS) {
-    preHijack.push('always_spawn_mips.asm')
+    normal.push('always_spawn_mips.asm')
   }
   if (data.alwaysSpawnSub) {
-    preHijack.push('always_spawn_sub.asm')
+    normal.push('always_spawn_sub.asm')
   }
   if (data.alwaysSpawnUnpressedSwitches) {
-    preHijack.push('always_spawn_unpressed_switches.asm')
+    normal.push('always_spawn_unpressed_switches.asm')
   }
   if (data.alwaysSpawnToadStars) {
-    preHijack.push('always_spawn_toad_stars.asm')
+    normal.push('always_spawn_toad_stars.asm')
   }
   if (!data.fatPenguin) {
-    preHijack.push('no_fat_penguin.asm')
+    normal.push('no_fat_penguin.asm')
   }
   if (data.ttcSpeed) {
-    postHijack.push('ttc_speed.asm')
+    hijack.push('ttc_clock_speed.asm')
   }
   if (data.wdwLevel) {
-    postHijack.push('wdw_level.asm')
+    hijack.push('wdw_water_level.asm')
   }
   if (data.fiftyStarText) {
-    preHijack.push('50_star_text.asm')
+    normal.push('50_star_text.asm')
   }
   if (data.nonstop) {
-    preHijack.push('nonstop.asm')
+    normal.push('nonstop.asm')
   }
 
   const fs = require('fs')
@@ -264,14 +291,17 @@ function writeAsmFile(data, unpatchedROM) {
     'insert "../Super Mario 64 (J) [!].z64"\n'
   )
 
-  preHijack.forEach(function(file) {
-    stream.write(`include "codes/${file}"\n`)
+  normal.forEach(function(val) {
+    stream.write(`include "codes/normal/${val}"\n`)
   })
-  stream.write('include "codes/hijack.asm"\n')
-  postHijack.forEach(function(file) {
-    stream.write(`include "codes/${file}"\n`)
+  stream.write('include "codes/hijack/hijack.asm"\n')
+  hijack.forEach(function(val) {
+    stream.write(`include "codes/hijack/${val}"\n`)
   })
-  stream.write('include "codes/return.asm"\n')
+  stream.write('include "codes/hijack/return.asm"\n')
+  other.forEach(function(val) {
+    stream.write(`include "codes/other/${val}"\n`)
+  })
 
   stream.end()
 }
