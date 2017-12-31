@@ -183,8 +183,11 @@ function writeAsmFile(data, unpatchedROM) {
     hijack.push('level_reset.asm')
   }
   if (data.starSelect) {
-    hijack.push('star_select.asm')
-    // TODO: THI behavior
+    if (data.thiBehavior === 'tiny') {
+      hijack.push('star_select_tiny.asm')
+    } else {
+      hijack.push('star_select_huge.asm')
+    }
   }
   if (data.savestates) {
     normal.push('savestates.asm')

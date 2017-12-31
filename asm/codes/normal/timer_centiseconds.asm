@@ -18,28 +18,27 @@ base 0x802E2B50
 addiu a2, a2, 0x71D4
 
 // Move Timer Slightly Left
-// 
-// origin 0x09DB12
-// base 0x802E2B12
-// dh 0x009E // Time Text X
-// 
-// origin 0x09DB26
-// base 0x802E2B26
-// dh 0x00D9 // Minutes X
-// 
-// origin 0x09DB3E
-// base 0x802E2B3E
-// dh 0x00ED // Seconds X
-// 
-// origin 0x09DB56
-// base 0x802E2B56
-// dh 0x010F // Tenths X
-// 
-// origin 0x09DB9E
-// base 0x802E2B9E
-// dh 0x00E3 // ' Separator X
-// 
-// origin 0x09DBB2
-// base 0x802E2BB2
-// dh 0x0106 // " Separator X
-// 
+
+origin 0x09DB12
+base 0x802E2B12
+dh 0x009E // Time Text X
+
+origin 0x09DB26
+base 0x802E2B26
+dh 0x00D9 // Minutes X
+
+origin 0x09DB3E
+base 0x802E2B3E
+dh 0x00ED // Seconds X
+
+origin 0x09DB56
+base 0x802E2B56
+dh 0x010F // Tenths X
+
+origin 0x09DB9E
+base 0x802E2B9E
+dh 0x00E3 // ' Separator X
+
+origin 0x09DBB2
+base 0x802E2BB2
+dh 0x0106 // " Separator X
