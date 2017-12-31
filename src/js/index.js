@@ -5,9 +5,9 @@ $(document).ready(function() {
     '120 Star': 120,
     '74 Star (Up RTA)': 74
   }
-  $.each(fileOptions, function(key, value) {
-    $('.practice-file-select').each(function() {
-      $(this).append($('<option></option>')
+  $.each(fileOptions, (key, value) => {
+    $('.practice-file-select').each((i, el) => {
+      $(el).append($('<option></option>')
         .attr('value', value)
         .text(key)
       )
@@ -17,7 +17,7 @@ $(document).ready(function() {
   $('#file-d').val(74)
 
   // hide/show elements as necessary
-  $('#star-select').change(function() {
+  $('#star-select').change(() => {
     if($(this).is(':checked')) {
       $('#thi-behavior').parent().slideDown();
     } else {
@@ -25,7 +25,7 @@ $(document).ready(function() {
     }
   })
 
-  $('#timer-on').change(function() {
+  $('#timer-on').change(() => {
     if($(this).is(':checked')) {
       $('#timer-in-castle').parent().slideDown();
       $('#timer-centiseconds').parent().slideDown();
@@ -43,7 +43,7 @@ $(document).ready(function() {
     }
   })
 
-  $('#timer-always').change(function() {
+  $('#timer-always').change(() => {
     if($(this).is(':checked')) {
       $('#show-timer').parent().slideUp();
     } else {
@@ -51,7 +51,7 @@ $(document).ready(function() {
     }
   })
 
-  $('#lag-counter').change(function() {
+  $('#lag-counter').change(() => {
     if($(this).is(':checked')) {
       $('#lag-as-lives').parent().slideDown();
     } else {
@@ -60,7 +60,7 @@ $(document).ready(function() {
   })
 
   $('#speed-as-stars').parent().slideUp(); // speed display is off by default so this should be pre-slid
-  $('#speed-display').change(function() {
+  $('#speed-display').change(() => {
     if($(this).is(':checked')) {
       $('#speed-as-stars').parent().slideDown();
     } else {
@@ -149,13 +149,10 @@ function patch() {
   })
   if(!unpatchedROM) return
 
-  writeAsmFile(data, unpatchedROM[0])
-
-  console.log(data)
-  console.log(unpatchedROM)
+  patchROM(data, unpatchedROM[0])
 }
 
-function writeAsmFile(data, unpatchedROM) {
+function patchROM(data, unpatchedROM) {
   // codes are included in master assembly file in the following order:
   // 1. normal codes - these just modify existing game values one time or do 
   //      something basic
@@ -174,6 +171,7 @@ function writeAsmFile(data, unpatchedROM) {
   var hijack = [] // hijack/*.asm
   var other = [] // other/*.asm
 
+  normal.push('title_screen.asm')
   // TODO: custom practice files
   if (data.infiniteLives) {
     hijack.push('infinite_lives.asm')
@@ -280,7 +278,10 @@ function writeAsmFile(data, unpatchedROM) {
     normal.push('nonstop.asm')
   }
 
-  const fs = require('fs')
+  const fs = require('fs-extra')
+
+  fs.copy(unpatchedROM, `asm/unpatched.z64`)
+
   var stream = fs.createWriteStream('asm/patch.asm')
 
   // header stuff
@@ -290,21 +291,39 @@ function writeAsmFile(data, unpatchedROM) {
     'include "N64.inc"\n' +
     'include "macros.inc"\n' +
     'origin 0x0\n' +
-    // `insert "${unpatchedROM}"\n`
-    'insert "../Super Mario 64 (J) [!].z64"\n'
+    'insert "./unpatched.z64"\n'
   )
 
-  normal.forEach(function(val) {
+  normal.forEach(val => {
     stream.write(`include "codes/normal/${val}"\n`)
   })
-  stream.write('include "codes/hijack/hijack.asm"\n')
-  hijack.forEach(function(val) {
-    stream.write(`include "codes/hijack/${val}"\n`)
-  })
-  stream.write('include "codes/hijack/return.asm"\n')
-  other.forEach(function(val) {
+  if (hijack.length != 0) {
+    stream.write('include "codes/hijack/hijack.asm"\n')
+  }
+  stream.write('include "codes/hijack/custom_start.asm"\n')
+  if (hijack.length != 0) {
+    hijack.forEach(val => {
+      stream.write(`include "codes/hijack/${val}"\n`)
+    })
+    stream.write('include "codes/hijack/return.asm"\n')
+  }
+  other.forEach(val => {
     stream.write(`include "codes/other/${val}"\n`)
   })
 
   stream.end()
+
+  // TODO: execSync not working for some reason, so i'm in promise hell
+  const {exec} = require('child_process')
+  exec('bass.exe -create patch.asm -o output.z64',
+    { cwd: 'asm' },
+    () => {
+      exec('n64crc.exe output.z64',
+        { cwd: 'asm' },
+        () => {
+          fs.remove('asm/unpatched.z64')
+          fs.move('asm/output.z64', './Super Mario 64 [J] Patched.z64')
+        }
+      )
+  })
 }
