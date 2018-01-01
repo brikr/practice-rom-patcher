@@ -17,16 +17,16 @@ $(document).ready(function() {
   $('#file-d').val(74)
 
   // hide/show elements as necessary
-  $('#star-select').change(() => {
-    if($(this).is(':checked')) {
+  $('#star-select').change(event => {
+    if($(event.target).is(':checked')) {
       $('#thi-behavior').parent().slideDown();
     } else {
       $('#thi-behavior').parent().slideUp();
     }
   })
 
-  $('#timer-on').change(() => {
-    if($(this).is(':checked')) {
+  $('#timer-on').change(event => {
+    if($(event.target).is(':checked')) {
       $('#timer-in-castle').parent().slideDown();
       $('#timer-centiseconds').parent().slideDown();
       $('#timer-always').parent().slideDown();
@@ -43,16 +43,16 @@ $(document).ready(function() {
     }
   })
 
-  $('#timer-always').change(() => {
-    if($(this).is(':checked')) {
+  $('#timer-always').change(event => {
+    if($(event.target).is(':checked')) {
       $('#show-timer').parent().slideUp();
     } else {
       $('#show-timer').parent().slideDown();
     }
   })
 
-  $('#lag-counter').change(() => {
-    if($(this).is(':checked')) {
+  $('#lag-counter').change(event => {
+    if($(event.target).is(':checked')) {
       $('#lag-as-lives').parent().slideDown();
     } else {
       $('#lag-as-lives').parent().slideUp();
@@ -60,8 +60,8 @@ $(document).ready(function() {
   })
 
   $('#speed-as-stars').parent().slideUp(); // speed display is off by default so this should be pre-slid
-  $('#speed-display').change(() => {
-    if($(this).is(':checked')) {
+  $('#speed-display').change(event => {
+    if($(event.target).is(':checked')) {
       $('#speed-as-stars').parent().slideDown();
     } else {
       $('#speed-as-stars').parent().slideUp();
@@ -75,6 +75,13 @@ $(document).ready(function() {
 
   // patch button handler
   $('#patch-button').click(patch)
+
+  // handle links (social buttons)
+  const {shell} = require('electron').remote
+  $('a[href^="http"]').click(event => {
+    event.preventDefault()
+    shell.openExternal(event.currentTarget.href)
+  })
 })
 
 // helper to get selected option's value in select
@@ -322,7 +329,7 @@ function patchROM(data, unpatchedROM) {
         { cwd: 'asm' },
         () => {
           fs.remove('asm/unpatched.z64')
-          fs.move('asm/output.z64', './Super Mario 64 [J] Patched.z64')
+          fs.move('asm/output.z64', './Super Mario 64 [J] [!] Patched.z64')
         }
       )
   })

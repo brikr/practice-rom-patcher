@@ -50,13 +50,14 @@
 }
 
 /* no text selection or focus highlighting */
-:not(input):not(textarea),
-:not(input):not(textarea)::after,
-:not(input):not(textarea)::before {
+/* make links still clickable */
+:not(a):not(input):not(textarea) *,
+:not(a):not(input):not(textarea)::after *,
+:not(a):not(input):not(textarea)::before *{
     -webkit-user-select: none;
     user-select: none;
     cursor: default;
 }
 input, button, textarea, :focus {
-    outline: none; // You should add some other style for :focus to help UX/a11y
+    outline: none;
 }

@@ -7,7 +7,7 @@ let mainWindow
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: 'Practice ROM Patcher by minikori',
-    width: 450,
+    width: 465,
     height: 500,
     resizable: false
   })

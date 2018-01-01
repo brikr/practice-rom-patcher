@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <script src="node_modules/jquery/dist/jquery.js"></script>
-      <script src="node_modules/jquery/dist/jquery.js"></script>
-      <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+      <script src="node_modules/jquery/dist/jquery.min.js"></script>
+      <script src="node_modules/jquery/dist/jquery.min.js"></script>
+      <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
       <script src="src/js/index.js"></script>
       
-      <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-      <link href="node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css" rel="stylesheet">
+      <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
       <link href="src/css/bootstrap-flat.min.css" rel="stylesheet">
       <link href="src/css/bootstrap-flat-extras.min.css" rel="stylesheet">
       <link href="src/css/practice-rom-patcher.css" rel="stylesheet">
   </head>
   <body>
     <ul class="nav nav-tabs nav-tabs-pivot" data-tabs="tabs">
-      <li class="active"><a data-toggle="tab" href="#efficient">Efficient Practice</a></li>
+      <li class="active"><a data-toggle="tab" href="#practice">Practice</a></li>
       <li><a data-toggle="tab" href="#timer">Timer</a></li>
       <li><a data-toggle="tab" href="#hud">HUD</a></li>
       <li><a data-toggle="tab" href="#cosmetic">Cosmetic</a></li>
       <li><a data-toggle="tab" href="#misc">Misc</a></li>
+      <li><a data-toggle="tab" href="#about">About</a></li>
     </ul>
 
     <div class="tab-content">
-      <div id="efficient" class="container tab-pane active">
+      <div id="practice" class="container tab-pane active">
         <!-- Practice Files -->
         <div class="row">
           <div class="form-group col-xs-6">
@@ -188,6 +190,28 @@
             <i data-swoff-text="OFF" data-swon-text="ON"></i>Non-stop
           </label>
         </form>
+      </div>
+      <div id="about" class="container tab-pane">
+        <h4>Super Mario 64 Practice ROM Patcher</h4>
+        <h5>by minikori</h5>
+        <hr>
+        <p class="text-justify">
+          <b>To use,</b> configure the options as desired, then press Patch
+          and select an unpatched <code>Super Mario 64 [J] [!].z64</code> file.
+          A patched ROM named <code>Super Mario 64 [J] [!] Patched.z64</code>
+          should appear.
+        </p>
+        <p class="text-justify">
+          Thanks to the following people for their work on creating and helping
+          me understand the assembly codes:
+        </p>
+        <p class="text-center">atmpas, bitalive, cirumark994, queueRAM, Kaze</p>
+        <hr>
+        <div class="row social">
+          <a class="col-xs-4 text-center" style="color: #1DA1F2" href="https://twitter.com/_minikori" target="_blank"><i class="fab fa-twitter fa-4x"></i></a>
+          <a class="col-xs-4 text-center" style="color: #171515" href="https://github.com/brikr/practice-rom-patcher" target="_blank"><i class="fab fa-github fa-4x"></i></a>
+          <a class="col-xs-4 text-center" style="color: #7289DA" href="https://discord.gg/0Si1OtnB7YnMF02r" target="_blank"><i class="fab fa-discord fa-4x"></i></a>
+        </div>
       </div>
     </div>
     <div class="footer navbar-fixed-bottom">
