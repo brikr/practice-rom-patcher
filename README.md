@@ -2,7 +2,7 @@
 Simple tool to make creating custom practice ROMs easy.
 
 # Codes
-The following codes/customizations are supported:
+The following codes/features are supported:
 - Efficient Practice
   - Infinite lives
   - Level reset (with camera fix)
@@ -42,7 +42,7 @@ The following codes/customizations are supported:
   - Always display 50 star text box after grabbing a star
   - Non-stop
 
-The following codes/customizations are planned:
+The following codes/features are planned:
 - Efficient practice
   - Practice files with customizable locations
     - 120 star*
@@ -61,6 +61,9 @@ The following codes/customizations are planned:
   - Always spawn sub in DDD Toggle
 - HUD
   - Fully editable HUD
+- Features
+  - Warn user if codes cause extra lag
+  - Import/export presets
 
 \*This is part of the current practice ROM and will be implemented first
 
